@@ -122,27 +122,27 @@ class Crawler:
         for data in self.crawled_data:
             content_text = ""
             
-            # Add metadata as a header section
+           
             content_text += f"# {data['title']}\n\n"
             content_text += f"**URL:** {data['url']}\n\n"
             content_text += f"**Description:** {data['description']}\n\n"
-            content_text += "---\n\n"  # Horizontal rule for separation
+            content_text += "---\n\n" 
             
-            # Add headings
+            
             if data['content']['headings']:
                 content_text += "## Page Headings\n\n"
                 for heading in data['content']['headings']:
-                    # Add appropriate number of # for heading level
+                    
                     content_text += f"{'#' * heading['level']} {heading['text']}\n"
                 content_text += "\n"
             
-            # Add paragraphs
+           
             if data['content']['paragraphs']:
                 content_text += "## Content\n\n"
                 for p in data['content']['paragraphs']:
                     content_text += f"{p}\n\n"
             
-            # Add lists
+            
             if data['content']['lists']:
                 content_text += "## Lists\n\n"
                 for lst in data['content']['lists']:
@@ -154,29 +154,29 @@ class Crawler:
                             content_text += f"1. {item}\n"
                     content_text += "\n"
             
-            # Add tables
+            
             if data['content']['tables']:
                 content_text += "## Tables\n\n"
                 for table in data['content']['tables']:
-                    if table:  # Check if table has data
-                        # Create header row
+                    if table:  
+                        
                         content_text += "| " + " | ".join(table[0]) + " |\n"
-                        # Add separator row
+                        
                         content_text += "| " + " | ".join(["---"] * len(table[0])) + " |\n"
-                        # Add data rows
+                       
                         for row in table[1:]:
                             content_text += "| " + " | ".join(row) + " |\n"
                         content_text += "\n"
             
             all_content.append(content_text)
             
-        # Return all content as a single string with separators
+      
         return "\n---\n\n".join(all_content)
 
 if __name__ == '__main__':
-    crawler = Crawler(urls=['https://mace.ac.in/'])
+    crawler = Crawler(urls=['https://mace.ac.in/']) #paste the URL here
     content = crawler.run(max_pages=1)
     
-    # Save to markdown file
+   
     with open('crawled_content.md', 'w', encoding='utf-8') as f:
         f.write(content)
